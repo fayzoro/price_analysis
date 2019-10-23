@@ -26,4 +26,10 @@ def load_housing_data(housing_path=housing_path):
 
 
 housing = load_housing_data()
-housing.head()
+print(housing.head())
+
+
+# 快四查看数据描述
+print(housing.info())
+
+print(housing.describe())
