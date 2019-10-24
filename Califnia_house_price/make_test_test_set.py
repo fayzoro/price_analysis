@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 '''
 @File    :   make_test_test_set.py    
@@ -12,8 +12,11 @@
 import os
 import pandas as pd
 import numpy as np
-from .check_data import housing
+# from .check_data import housing
 
+housing_path = "datasets/housing"
+csv_path = os.path.join(housing_path, 'housing.csv')
+housing = pd.read_csv(csv_path)
 
 def split_train_test(data=housing, test_ratio=0.2):
     '''
@@ -23,8 +26,8 @@ def split_train_test(data=housing, test_ratio=0.2):
     :return: 训练集，测试集
     '''
     shuffled_indices = np.random.permutation(len(data))
-    test_set_size = int(len(data)) * test_ratio
-    test_indices = shuffled_indices[: test_set_size]
+    test_set_size = int(int(len(data)) * test_ratio)
+    test_indices = shuffled_indices[:test_set_size]
     train_indices = shuffled_indices[test_set_size:]
     return data.iloc[train_indices], data.iloc[test_indices]
 
@@ -35,4 +38,5 @@ print(len(train_set), 'train +', len(test_set), 'test')
 
 # 使用sklearn实现分割数据集
 from sklearn.model_selection import train_test_split
-train_set, test_set = split_train_test(housing, test_size=0.2, random_state=42)
+train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
+print(len(train_set), 'train +', len(test_set), 'test')
